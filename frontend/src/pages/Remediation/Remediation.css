@@ -1,0 +1,83 @@
+.remediation-page { display: flex; flex-direction: column; gap: var(--space-5); }
+.remediation-layout { display: grid; grid-template-columns: 280px 1fr; gap: var(--space-5); align-items: start; }
+.remediation-sidebar { display: flex; flex-direction: column; }
+.remediation-main { min-height: 300px; }
+
+.card-section-title { font-size: 13px; font-weight: 700; color: var(--color-gray-700); margin-bottom: var(--space-3); }
+
+.analysis-selector { display: flex; flex-direction: column; gap: 6px; }
+.analysis-btn {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 10px; border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md); background: transparent;
+  cursor: pointer; font-family: var(--font-family); font-size: 12px;
+  color: var(--color-gray-700); transition: all var(--transition-fast);
+  text-align: left;
+}
+.analysis-btn:hover { background: var(--color-gray-50); }
+.analysis-btn.active { background: var(--color-accent-light); border-color: var(--color-accent-border); color: var(--color-accent); }
+.analysis-btn.disabled { opacity: 0.5; cursor: not-allowed; }
+
+.status-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.status-dot-completed { background: var(--color-success); }
+.status-dot-failed { background: var(--color-critical); }
+.status-dot-running { background: var(--color-info); }
+.status-dot-pending { background: var(--color-gray-300); }
+
+.registry-list { display: flex; flex-direction: column; gap: 10px; }
+.registry-item { display: flex; flex-direction: column; gap: 3px; }
+.registry-key { font-size: 12px; font-family: monospace; color: var(--color-accent); display: flex; align-items: center; justify-content: space-between; }
+.registry-desc { font-size: 11px; color: var(--color-gray-500); line-height: 1.4; }
+
+.risk-chip {
+  font-size: 10px; font-weight: 700; padding: 1px 7px;
+  border-radius: var(--radius-full); border: 1px solid currentColor;
+}
+.risk-chip-low { color: var(--color-low); }
+.risk-chip-medium { color: var(--color-medium); }
+.risk-chip-high { color: var(--color-high); }
+.risk-chip-critical { color: var(--color-critical); }
+
+.approval-chip { font-size: 10px; font-weight: 600; background: var(--color-medium-bg); color: var(--color-medium); padding: 1px 7px; border-radius: 3px; }
+
+.rem-empty {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: var(--space-2); padding: 60px;
+  text-align: center; font-size: 13px; color: var(--color-gray-500);
+}
+
+.actions-list { display: flex; flex-direction: column; gap: 10px; }
+
+.action-item {
+  border: 1px solid var(--color-gray-200); border-radius: var(--radius-md);
+  overflow: hidden; border-left-width: 3px;
+}
+.risk-border-low { border-left-color: var(--color-low); }
+.risk-border-medium { border-left-color: var(--color-medium); }
+.risk-border-high { border-left-color: var(--color-high); }
+.risk-border-critical { border-left-color: var(--color-critical); }
+
+.action-item-header {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: 12px var(--space-4); cursor: pointer;
+  background: var(--color-gray-50); transition: background var(--transition-fast);
+}
+.action-item-header:hover { background: var(--color-gray-100); }
+.action-item-info { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+.action-item-title { font-size: 13px; font-weight: 600; color: var(--color-gray-800); }
+.action-item-key { font-size: 11px; color: var(--color-gray-400); font-family: monospace; }
+
+.action-item-body { padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-3); border-top: 1px solid var(--color-gray-200); }
+.action-item-desc { font-size: 13px; color: var(--color-gray-700); line-height: 1.5; }
+.action-item-outcome, .action-item-rollback { font-size: 12px; color: var(--color-gray-600); line-height: 1.4; }
+
+.action-item-buttons { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+
+.exec-result {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: var(--space-3); border-radius: var(--radius-md);
+  font-size: 12px; line-height: 1.5;
+}
+.exec-success { background: var(--color-success-bg); color: var(--color-success); }
+.exec-fail { background: var(--color-critical-bg); color: var(--color-critical); }
+.exec-verified { font-weight: 700; margin-left: 8px; }

@@ -1,0 +1,108 @@
+.incidents-page { display: flex; flex-direction: column; gap: var(--space-5); }
+
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.filters-card { padding: var(--space-4) !important; }
+
+.filters-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.search-field {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-gray-400);
+  pointer-events: none;
+}
+
+.search-input { padding-left: 34px; }
+
+.filter-select { width: 160px; }
+
+.incidents-table { min-width: 900px; }
+
+.inc-number {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.inc-title {
+  max-width: 280px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.sla-breach {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-critical);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sla-ok {
+  font-size: 11px;
+  color: var(--color-gray-400);
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-gray-200);
+}
+
+.pagination-info { font-size: 12px; color: var(--color-gray-500); }
+.pagination-controls { display: flex; align-items: center; gap: var(--space-2); }
+.pagination-page { font-size: 12px; font-weight: 600; color: var(--color-gray-600); padding: 0 var(--space-2); }
+
+.loading-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: 60px;
+  color: var(--color-gray-400);
+  font-size: 13px;
+}
+
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-gray-200);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+/* ─── Create form ────────────────────────────────────────────────────────────── */
+.create-form { display: flex; flex-direction: column; gap: var(--space-4); }
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.form-group { display: flex; flex-direction: column; gap: var(--space-1); }
+.form-group.full { grid-column: 1 / -1; }

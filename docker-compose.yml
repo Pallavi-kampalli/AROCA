@@ -1,0 +1,77 @@
+version: "3.9"
+
+services:
+  # ─── PostgreSQL with pgvector ──────────────────────────────────────────────
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: traceiq
+      POSTGRES_PASSWORD: traceiq_secret
+      POSTGRES_DB: traceiq
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U traceiq -d traceiq"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # ─── Database migrations ───────────────────────────────────────────────────
+  migrate:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://traceiq:traceiq_secret@db:5432/traceiq
+      DATABASE_URL_SYNC: postgresql://traceiq:traceiq_secret@db:5432/traceiq
+    command: >
+      sh -c "cd /app && alembic upgrade head"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: "no"
+
+  # ─── FastAPI Backend ───────────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://traceiq:traceiq_secret@db:5432/traceiq
+      DATABASE_URL_SYNC: postgresql://traceiq:traceiq_secret@db:5432/traceiq
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - uploads:/app/uploads
+      - ml_models:/app/ml_models
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
+  # ─── React Frontend ────────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend/src:/app/src
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8000
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  uploads:
+  ml_models:
